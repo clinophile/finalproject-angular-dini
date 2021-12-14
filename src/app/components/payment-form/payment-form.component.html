@@ -30,7 +30,7 @@
                     <label for="securityCode">SECURITY CODE</label>
                     <input placeholder="Security Code" [class.invalid]="securityCode && securityCode.touched && securityCode.invalid" type="password" formControlName="securityCode" id="securityCode" class="form-control">
                     <span style="color: red" *ngIf="securityCode && securityCode.touched && securityCode.invalid">
-                        Please input your Security Code.
+                        Please input your Security Code. Min. length is 5.
                     </span>
                 </div>
                 <div class="form-group col-md-6">
@@ -87,7 +87,7 @@
     </div>
     <form>
         <div class="modal-body">
-            <p>Are you sure you want to delete '{{currentPayment.paymentDetailId}}' ?</p>
+            <p>Are you sure you want to delete '{{currentPayment.cardOwnerName}}' ?</p>
             <p class="text-warning"><small>This action cannot be undone.</small></p>
         </div>
         <div class="modal-footer">
