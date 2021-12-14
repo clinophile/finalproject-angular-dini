@@ -1,0 +1,98 @@
+<ng-template #update let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Update Payment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form.updateData" (ngSubmit)="updatePayment()" action="">
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label for="cardOwnerName">CARD OWNER NAME</label>
+                    <input placeholder="Full Name" [class.invalid]="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid" type="text" formControlName="cardOwnerName" id="cardOwnerName" class="form-control">
+                    <span style="color: red" *ngIf="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid">
+                        Please input your Full Name.
+                    </span>
+                </div>
+                <br>
+                <div class="form-group col-md-5">
+                    <label for="cardNumber">CARD NUMBER</label>
+                    <input placeholder="16 Digit Card Number" [class.invalid]="cardNumber && cardNumber.touched && cardNumber.invalid" type="text" formControlName="cardNumber" id="cardNumber" class="form-control">
+                    <span style="color: red" *ngIf="cardNumber && cardNumber.touched && cardNumber.invalid">
+                        Please input your 16 Digit Card Number.
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="securityCode">SECURITY CODE</label>
+                    <input placeholder="Security Code" [class.invalid]="securityCode && securityCode.touched && securityCode.invalid" type="password" formControlName="securityCode" id="securityCode" class="form-control">
+                    <span style="color: red" *ngIf="securityCode && securityCode.touched && securityCode.invalid">
+                        Please input your Security Code.
+                    </span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="expirationDate">EXPIRATION DATE</label>
+                    <input placeholder="MM/YYYY" [class.invalid]="expirationDate && expirationDate.touched && expirationDate.invalid" type="text" formControlName="expirationDate" id="expirationDate" class="form-control">
+                    <span style="color: red" *ngIf="expirationDate && expirationDate.touched && expirationDate.invalid">
+                        Please input expiration date.
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" (click)="modal.close('Save click')" [disabled]="form.updateData.invalid">Update Payment</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+<!-- TABEL LIST Payment -->
+<app-navbar (newTaskEvent) = "refreshList()"></app-navbar>
+
+<div class="container">    
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Card Owner Name</th>
+                <th scope="col">Card Number</th>
+                <th scope="col">Expiration Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let payment of listOfPayment">
+                <td>{{payment.paymentDetailId}}</td>
+                <td>{{payment.cardOwnerName}}</td>
+                <td>{{payment.cardNumber}}</td>
+                <td>{{payment.expirationDate | date: "MM/yyyy"}}</td>
+                <td>
+                    <button (click)= "open(update, payment)" class="btn btn-primary mx-2"> Edit </button>
+                    <button (click) = "open(delete, payment)" class="btn btn-danger"> Delete </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Modal Delete -->
+<ng-template #delete let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete Payment</h4>
+    </div>
+    <form>
+        <div class="modal-body">
+            <p>Are you sure you want to delete '{{currentPayment.paymentDetailId}}' ?</p>
+            <p class="text-warning"><small>This action cannot be undone.</small></p>
+        </div>
+        <div class="modal-footer">
+            <input type="button" class="btn btn-default" (click)="modal.dismiss('Cross click')" value="Cancel">
+            <input type="button" class="btn btn-danger" (click)="deletePayment(currentPayment.paymentDetailId)" value="Delete">
+        </div>
+    </form>
+</ng-template>

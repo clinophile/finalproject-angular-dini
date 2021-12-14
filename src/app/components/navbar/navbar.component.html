@@ -1,0 +1,84 @@
+<nav class="navbar navbar-light bg-light justify-content-">
+   <form class="form-inline">
+     <button (click) = "logout()" class="btn btn-outline-danger my-2 my-sm-0" type="button">Logout</button>
+  </form>
+</nav>
+
+
+
+<div class="container-xl">
+    <div class="table-responsive">
+      <div class="table-wrapper">
+        <div class="table-title">
+          <div class="row">
+            <div class="col-sm-3">
+              <h2>MANAGE <b>PAYMENT</b></h2>
+            </div>
+            <div class="col-sm-9">
+              <button (click)="open(content)" type="submit" class="btn btn-success">
+                <i class="bi bi-person-plus-fill" viewBox="0 0 16 16" width="16" height="16"></i>
+                Add New Payment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+<!-- MODAL INSERT PAYMENT -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New Payment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="form.inputData" (ngSubmit)="addPayment()" action="">
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label for="cardOwnerName">CARD OWNER NAME</label>
+                    <input placeholder="Full Name" [class.invalid]="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid" type="text" formControlName="cardOwnerName" id="cardOwnerName" class="form-control">
+                    <span style="color: red" *ngIf="cardOwnerName && cardOwnerName.touched && cardOwnerName.invalid">
+                        Please input your Full Name.
+                    </span>
+                </div>
+                <br>
+                <div class="form-group col-md-5">
+                    <label for="cardNumber">CARD NUMBER</label>
+                    <input placeholder="16 Digit Card Number" [class.invalid]="cardNumber && cardNumber.touched && cardNumber.invalid" type="text" formControlName="cardNumber" id="cardNumber" class="form-control">
+                    <span style="color: red" *ngIf="cardNumber && cardNumber.touched && cardNumber.invalid">
+                        Please input your 16 Digit Card Number.
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="form-group col-md-5">
+                    <label for="securityCode">SECURITY CODE</label>
+                    <input placeholder="Security Code" [class.invalid]="securityCode && securityCode.touched && securityCode.invalid" type="password" formControlName="securityCode" id="securityCode" class="form-control">
+                    <span style="color: red" *ngIf="securityCode && securityCode.touched && securityCode.invalid">
+                        Please input your Security Code.
+                    </span>
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="expirationDate">EXPIRATION DATE</label>
+                    <input placeholder="YYYY-MM-DD" [class.invalid]="expirationDate && expirationDate.touched && expirationDate.invalid" type="text" formControlName="expirationDate" id="expirationDate" class="form-control">
+                    <span style="color: red" *ngIf="expirationDate && expirationDate.touched && expirationDate.invalid">
+                        Please input expiration date.
+                    </span>
+                </div>
+            </div>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" (click)="modal.close('Save click')" [disabled]="form.inputData.invalid">Submit Payment</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
+
+
+
