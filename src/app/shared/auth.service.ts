@@ -35,7 +35,9 @@ export class AuthService {
       return localStorage.setItem('access_token', token)
     }
 
-
+    logOut() {
+      return localStorage.setItem('access_token', '');
+    }
 
     get isAuthenticated() {
       return !!this.getToken()

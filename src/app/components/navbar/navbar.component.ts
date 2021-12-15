@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
   @Output() newTaskEvent =  new EventEmitter<boolean>();
 
-  constructor(public service: PaymentService, private modalService: NgbModal,
+  constructor(public service: PaymentService, public authService: AuthService, private modalService: NgbModal,
     private toastr: ToastrService, public router: Router) { }
 
   ngOnInit(): void {
@@ -58,6 +58,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
+    this.authService.logOut() ;
     this.router.navigate(['login']);
   }
 
